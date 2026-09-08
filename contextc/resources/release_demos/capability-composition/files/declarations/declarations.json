@@ -1,0 +1,38 @@
+{
+  "resources": [
+    {
+      "resource_id": "private-report",
+      "kind": "file",
+      "sensitivity": "sensitive",
+      "trust_domain": "local_repository",
+      "allowed_sinks": ["local"],
+      "allowed_actions": ["read"]
+    }
+  ],
+  "tools": [
+    {
+      "tool_id": "read_private_report",
+      "server_id": "release-static",
+      "trust_domain": "verified_tool",
+      "capabilities": ["local_file_read"],
+      "resources_read": ["private-report"],
+      "resources_written": [],
+      "possible_output_sensitivity": "sensitive",
+      "side_effecting": false,
+      "allows_execution": false,
+      "allows_network": false
+    },
+    {
+      "tool_id": "send_external_message",
+      "server_id": "release-static",
+      "trust_domain": "verified_tool",
+      "capabilities": ["external_write", "message_send"],
+      "resources_read": [],
+      "resources_written": [],
+      "possible_output_sensitivity": "internal",
+      "side_effecting": true,
+      "allows_execution": false,
+      "allows_network": true
+    }
+  ]
+}

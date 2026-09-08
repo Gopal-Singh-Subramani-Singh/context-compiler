@@ -1,0 +1,2 @@
+{"event":"deploy_started","service":"checkout-api","version":"2026.09.03.1","time":"2026-09-03T17:02:00-07:00"}
+{"event":"deploy_completed","service":"checkout-api","version":"2026.09.03.1","time":"2026-09-03T17:06:00-07:00"}

@@ -1,0 +1,2 @@
+{"time":"2026-09-03T17:13:00-07:00","speaker":"oncall","text":"Latency started immediately after checkout-api 2026.09.03.1 finished. Cache hit ratio collapsed; orders DB looks normal."}
+{"time":"2026-09-03T17:15:00-07:00","speaker":"incident-commander","text":"Use rollback runbook v2. Do not follow the old cache-flush-first procedure."}

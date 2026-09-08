@@ -1,0 +1,49 @@
+{
+  "baseline_schema_version": 1,
+  "baseline_compiler_version": "0.14.0",
+  "purpose": "Fresh pre-M8 semantic regression freeze generated from this cumulative repository before enabling cache reuse.",
+  "entries": {
+    "m4_reproduction": {
+      "tests": ["tests/test_m4_reproduction.py"],
+      "result": "22 passed",
+      "status": "pass"
+    },
+    "m5_optimizer_contracts": {
+      "tests": ["tests/test_m5_integration.py", "tests/test_m5_optimizers.py"],
+      "container_non_pulp_result": "28 passed; 9 ILP-related tests excluded from the baseline sub-run",
+      "container_pulp_available": false,
+      "mac_reference_before_m8": "252 passed cumulative with PuLP 3.3.2",
+      "status": "pass_with_optional_dependency_note"
+    },
+    "m6_metric_semantics": {
+      "tests": [
+        "tests/test_m6_source_and_metrics.py",
+        "tests/test_m6_controlled_suite.py",
+        "tests/test_m6_runner_and_storage.py",
+        "tests/test_m6_trace_and_cli.py"
+      ],
+      "result": "19 passed",
+      "status": "pass"
+    },
+    "m11_case_study": {
+      "tests": ["tests/test_m11_case_study.py", "tests/test_m11_cli.py"],
+      "result": "9 passed",
+      "status": "pass"
+    },
+    "m9_security": {
+      "tests": ["tests/security", "tests/parsers/test_m9_mcp_parser.py"],
+      "result": "24 passed",
+      "status": "pass"
+    },
+    "m15_cross_domain": {
+      "tests": ["tests/cross_domain"],
+      "result": "23 passed",
+      "status": "pass"
+    }
+  },
+  "notes": [
+    "Values were freshly produced from the v0.14.0 cumulative tree used as the M8 implementation base.",
+    "No historical benchmark digest was copied into this index.",
+    "Evaluator-only labels are not compiler cache inputs."
+  ]
+}

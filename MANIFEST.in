@@ -1,0 +1,25 @@
+include LICENSE
+include README.md
+include SECURITY.md
+include CHANGELOG.md
+include BUILD_STATE.md
+include pyproject.toml
+include uv.lock
+recursive-include docs *.md
+recursive-include contextc *.py py.typed
+recursive-include contextc/resources/security *
+recursive-include contextc/resources/capabilities *
+recursive-include contextc/resources/release_demos *
+recursive-include contextc/resources/demos/incidents/checkout-latency-001/public *
+recursive-include contextc/demos/live_mcp/plans *.json
+prune tests
+prune build
+prune dist
+prune .contextc
+prune .pytest_cache
+prune .mypy_cache
+prune .ruff_cache
+prune contextc/resources/benchmarks
+prune contextc/resources/case_study
+prune contextc/resources/demos/incidents/checkout-latency-001/evaluator
+global-exclude __pycache__ *.py[cod] .DS_Store

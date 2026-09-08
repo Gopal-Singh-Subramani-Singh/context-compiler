@@ -1,0 +1,7 @@
+{
+  "bundle_sha256": "sha256:5e40e011d2b1f87e45e113475f60d659c529e04b10f04263784cada16e285408",
+  "default_ref": "3201e702ed7eae506f793fad0aec204f387aeb4c",
+  "license": "MIT",
+  "repository_id": "python-humanize",
+  "upstream": "https://github.com/python-humanize/humanize"
+}

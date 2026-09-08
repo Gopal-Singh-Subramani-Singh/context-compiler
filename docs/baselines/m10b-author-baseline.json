@@ -1,0 +1,41 @@
+{
+  "milestone": "M10b",
+  "version": "0.17.2",
+  "author_environment": {
+    "live_mcp_sdk_available": false,
+    "pulp_available": false,
+    "ruff_available": false,
+    "mypy_available": false
+  },
+  "focused_live_mcp": {
+    "passed": 24,
+    "module_skipped": 1,
+    "shipping_package_coverage_percent": 86.63,
+    "coverage_fail_under_85": true
+  },
+  "focused_regression": {
+    "passed": 132,
+    "live_sdk_module_skipped": 1
+  },
+  "full_cumulative": {
+    "passed": 332,
+    "failed": 5,
+    "skipped": 3,
+    "known_pulp_failures": 5,
+    "known_pulp_skips": 2,
+    "live_sdk_module_skip": 1
+  },
+  "mac_target_with_pulp_and_mcp": {
+    "passed": 350,
+    "failed": 0,
+    "skipped": 0
+  },
+  "pending_completion_gates": [
+    "real official-SDK stdio live tests",
+    "whole-project coverage >=85%",
+    "ruff check",
+    "ruff format --check",
+    "mypy --strict",
+    "uv lock refresh/check"
+  ]
+}

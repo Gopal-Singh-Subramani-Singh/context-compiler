@@ -1,0 +1,7 @@
+service: checkout-api
+owner: commerce-platform
+oncall: commerce-primary
+dependencies:
+  - checkout-cache
+  - orders-db
+  - payment-api

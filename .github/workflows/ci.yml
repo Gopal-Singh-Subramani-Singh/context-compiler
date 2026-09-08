@@ -1,0 +1,170 @@
+name: context-compiler-ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -e '.[dev]'
+      - run: ruff check .
+      - run: ruff format --check .
+      - run: mypy --strict contextc
+
+  unit-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -e '.[dev,live-mcp]'
+      - run: pytest --cov=contextc --cov-report=term-missing --cov-fail-under=85
+
+  baseline-demos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -e '.[dev]'
+      - run: python tools/build_release_registry.py --check
+      - run: contextc demo registry verify
+      - run: contextc demo verify --all
+      - run: contextc cache --root .contextc/cache verify --json
+      - run: pytest -q tests/release tests/observatory
+
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install build twine
+      - run: python tools/build_release_registry.py --check
+      - run: python -m build
+      - run: python -m twine check dist/*
+      - uses: actions/upload-artifact@v4
+        with:
+          name: distributions
+          path: dist/*
+
+  installed-core:
+    needs: package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          name: distributions
+          path: dist
+      - run: |
+          python -m venv /tmp/contextc-core
+          /tmp/contextc-core/bin/pip install --no-deps dist/*.whl
+          mkdir -p /tmp/contextc-cwd
+          cd /tmp/contextc-cwd
+          env -u PYTHONPATH /tmp/contextc-core/bin/contextc --help
+          env -u PYTHONPATH /tmp/contextc-core/bin/contextc version
+          env -u PYTHONPATH /tmp/contextc-core/bin/contextc demo registry verify
+          env -u PYTHONPATH /tmp/contextc-core/bin/contextc demo verify --all
+          for id in repository-bug incident-response incremental-rebuild capability-composition; do
+            env -u PYTHONPATH /tmp/contextc-core/bin/contextc demo run "$id" >/dev/null
+          done
+
+  installed-ui:
+    needs: package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          name: distributions
+          path: dist
+      - run: |
+          python -m venv /tmp/contextc-ui
+          wheel=$(find dist -maxdepth 1 -name '*.whl' -print -quit)
+          /tmp/contextc-ui/bin/pip install "${wheel}[ui]"
+          cd /tmp
+          env -u PYTHONPATH /tmp/contextc-ui/bin/contextc ui --port 8516 >ui.log 2>&1 &
+          pid=$!
+          trap 'kill "$pid" 2>/dev/null || true' EXIT
+          python - <<'PY'
+          import time
+          import urllib.request
+          for _ in range(60):
+              try:
+                  with urllib.request.urlopen(
+                      "http://127.0.0.1:8516/_stcore/health", timeout=1
+                  ) as response:
+                      if response.status == 200:
+                          raise SystemExit(0)
+              except Exception:
+                  time.sleep(0.5)
+          raise SystemExit("Observatory health endpoint did not become ready")
+          PY
+          env -u PYTHONPATH /tmp/contextc-ui/bin/python - <<'PY'
+          from pathlib import Path
+
+          import contextc.observatory.streamlit_app as streamlit_app
+          from streamlit.testing.v1 import AppTest
+
+          app = AppTest.from_file(str(Path(streamlit_app.__file__))).run(timeout=60)
+          assert not app.exception
+          assert app.title[0].value == "Context Compiler Observatory"
+          cards = {item.value for item in app.subheader}
+          assert {
+              "Repository bug: empty natural_list",
+              "Incident response: checkout latency",
+              "Incremental rebuild: checkout_total",
+              "Capability composition: sensitive to external",
+          }.issubset(cards)
+          PY
+
+  release-security:
+    needs: package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          name: distributions
+          path: dist
+      - run: python tools/release_audit.py dist/*
+
+  clean-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -e '.[dev,live-mcp]'
+      - run: |
+          rm -rf .contextc build dist .pytest_cache .mypy_cache .ruff_cache
+          find . -type d -name __pycache__ -prune -exec rm -rf {} +
+      - run: pytest -q tests/test_m4_reproduction.py
+      - run: pytest -q tests/test_m5_integration.py tests/test_m5_optimizers.py
+      - run: pytest -q tests/test_m6_controlled_suite.py tests/test_m6_runner_and_storage.py
+      - run: pytest -q tests/test_m11_case_study.py
+      - run: pytest -q tests/cross_domain
+      - run: pytest -q tests/incremental
+      - run: pytest -q tests/capabilities
+      - run: pytest -q tests/live_mcp
+      - run: pytest -q tests/release tests/observatory

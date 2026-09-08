@@ -1,0 +1,1 @@
+{"schema_version":{"major":1,"minor":0},"plan_id":"untrusted-to-execution","calls":[{"call_id":"untrusted","tool_id":"echo_untrusted_text"},{"call_id":"execute","tool_id":"execute_fake_command","input_bindings":{"command":"call:untrusted.output"}}]}

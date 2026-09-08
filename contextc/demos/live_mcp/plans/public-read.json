@@ -1,0 +1,1 @@
+{"schema_version":{"major":1,"minor":0},"plan_id":"public-read","calls":[{"call_id":"read","tool_id":"read_public_note"}]}

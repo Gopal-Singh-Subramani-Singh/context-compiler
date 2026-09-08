@@ -1,0 +1,252 @@
+{
+  "demos": [
+    {
+      "default_budget": 0,
+      "default_strategy": "static",
+      "default_target": "static-capability-plan",
+      "demo_id": "capability-composition",
+      "description": "Statically analyze a sensitive local read flowing into an external-message sink. No tool is executed.",
+      "expected": {
+        "decision": "require_explicit_approval",
+        "risk_kind": "sensitive_to_external",
+        "tool_execution_performed": false
+      },
+      "files": [
+        {
+          "bytes": 583,
+          "path": "demo.json",
+          "sha256": "sha256:b74ec3fa16e1acfab7572c80828f6c4b7a2204f48e4029a7bf7d7bec8d50f4e4"
+        },
+        {
+          "bytes": 1039,
+          "path": "files/declarations/declarations.json",
+          "sha256": "sha256:de6b24e63749e708a1c3f7c8dc7c8c98db70ed3462a1b0f2063d8115bf898e0e"
+        },
+        {
+          "bytes": 349,
+          "path": "files/plan.json",
+          "sha256": "sha256:d1ce87abb79e9a9d767347c56d8adaae51d2be7aa62c3439333a46f8c84b9b44"
+        }
+      ],
+      "kind": "capability_composition",
+      "offline": true,
+      "profile_version": "1.0.0",
+      "title": "Capability composition: sensitive to external",
+      "tool_execution": false
+    },
+    {
+      "default_budget": 2600,
+      "default_strategy": "auto",
+      "default_target": "structured-json",
+      "demo_id": "incident-response",
+      "description": "Compile a bounded offline incident context with supersession and security evidence.",
+      "expected": {
+        "diagnostic_codes": [
+          "CTX210",
+          "CTX400",
+          "CTX425"
+        ],
+        "superseded_source_suffix": "rollback_v1.md"
+      },
+      "files": [
+        {
+          "bytes": 543,
+          "path": "demo.json",
+          "sha256": "sha256:f72137962191cdc32587066dcb7d8155d56769c6bcf04b5b9985c52968ed6fb5"
+        },
+        {
+          "bytes": 5343,
+          "path": "files/public/incident.json",
+          "sha256": "sha256:55bd86b50709403cdfc82aa9697ab2eda03b360f3e439cfedd19905a899bf678"
+        },
+        {
+          "bytes": 339,
+          "path": "files/public/sources/conversations/ops_chat.jsonl",
+          "sha256": "sha256:60b8bf93065f8aa624f8b45e747a95afb75cf521be0e5e8332d4961f4619958b"
+        },
+        {
+          "bytes": 226,
+          "path": "files/public/sources/events/deployments.jsonl",
+          "sha256": "sha256:8d7ba78bddda6397cf0f65deb64ab8ec2528fe10f767a616242fd6eaf9b4e6b6"
+        },
+        {
+          "bytes": 123,
+          "path": "files/public/sources/events/feature_flag.json",
+          "sha256": "sha256:59da0684feb92672fa6eb6994a99375356d8f205d5db357f3fdf60373d41c29d"
+        },
+        {
+          "bytes": 128,
+          "path": "files/public/sources/events/maintenance.json",
+          "sha256": "sha256:43226785f7abea6c4c2e4e0cc777d18bb18b92bd0744c41d9ee2f805511a6f0c"
+        },
+        {
+          "bytes": 315,
+          "path": "files/public/sources/incident.md",
+          "sha256": "sha256:b9d901d0b47689ba91aa569f53d787485ae5f2a4350b9daf8ac3ad4bf027c389"
+        },
+        {
+          "bytes": 267,
+          "path": "files/public/sources/mcp/benign_status.json",
+          "sha256": "sha256:70ab6ce2f9660ff0a24a10fa1ae5fffd5e61f36bf62ec810db2f2c9730b2d355"
+        },
+        {
+          "bytes": 661,
+          "path": "files/public/sources/mcp/malicious_result.json",
+          "sha256": "sha256:63011119775ff5f2c84b79895a7d9409936be8b24e949b52bc6c2bbd7d59bf3a"
+        },
+        {
+          "bytes": 100,
+          "path": "files/public/sources/observations/cache_hit.json",
+          "sha256": "sha256:63105a15c3ce3bef40c4f3c434b7496f2b3df0d52984ede9ef8bed63be497dff"
+        },
+        {
+          "bytes": 118,
+          "path": "files/public/sources/observations/checkout_latency.json",
+          "sha256": "sha256:cbbcb45455b757cca0ddceeb8f52ae33b0f3fdfe92ed06e6fe3ca72594ecee7c"
+        },
+        {
+          "bytes": 93,
+          "path": "files/public/sources/observations/db_cpu.json",
+          "sha256": "sha256:657e1f749d6777ed2cb51785b0483dcf4fdd9040ce05faada633f6a3616e9cbb"
+        },
+        {
+          "bytes": 97,
+          "path": "files/public/sources/observations/error_rate.json",
+          "sha256": "sha256:c58aa76eb049bd6d5ac082c64bfe3c70994020ef030bde16b0164f3ddc3ae637"
+        },
+        {
+          "bytes": 102,
+          "path": "files/public/sources/observations/network_latency.json",
+          "sha256": "sha256:e3951e6f375b62c870ce67498fd9f1c5cfd320d8c190786ea45c069c1040ada5"
+        },
+        {
+          "bytes": 94,
+          "path": "files/public/sources/observations/payment_latency.json",
+          "sha256": "sha256:ae7f6ce21eb830338a8acf5e9b5fc3143143ef3c2bc0103d2df6253480f76e1b"
+        },
+        {
+          "bytes": 93,
+          "path": "files/public/sources/observations/search_latency.json",
+          "sha256": "sha256:964693aa0b3527aae471eceb236014a769f7076e16630c9f8b59f8c2499bbd56"
+        },
+        {
+          "bytes": 171,
+          "path": "files/public/sources/procedures/restart_worker.md",
+          "sha256": "sha256:edf615692a3d4cd32fb3d44fc090c89ca4c1348f0ae79c00096736809ce1d791"
+        },
+        {
+          "bytes": 168,
+          "path": "files/public/sources/procedures/scale_checkout.md",
+          "sha256": "sha256:ef03501a642b1025bd9c7cb0042c7e18d1b4f5b30d1c5a1933803410a3822a5e"
+        },
+        {
+          "bytes": 137,
+          "path": "files/public/sources/records/deploy_manifest.json",
+          "sha256": "sha256:7894a51054925995d1143b281095637a914e0101111c793b91130b11a45a23fd"
+        },
+        {
+          "bytes": 157,
+          "path": "files/public/sources/records/oncall_handoff.md",
+          "sha256": "sha256:edbbfa568060104774f3bdf9238e3117fd1c0a2b0307a2df1a4c7cbb121dd0a8"
+        },
+        {
+          "bytes": 135,
+          "path": "files/public/sources/records/service_catalog.yaml",
+          "sha256": "sha256:6dc655cca4afb8e81e762f0bc6528f9284af5aa871a4b2f66ea9b92d3353e4fa"
+        },
+        {
+          "bytes": 236,
+          "path": "files/public/sources/runbooks/rollback_v1.md",
+          "sha256": "sha256:0bb8eb7abbbb2e37d4f9d55a6eddf496a7364121fc0975fbcd6e8c40d729b38c"
+        },
+        {
+          "bytes": 254,
+          "path": "files/public/sources/runbooks/rollback_v2.md",
+          "sha256": "sha256:08d7b8efbbe2ca0950e4d6dfd9bed047e1f10167b3179b7e020b468dba3c545c"
+        }
+      ],
+      "kind": "incident_response",
+      "offline": true,
+      "profile_version": "1.0.0",
+      "title": "Incident response: checkout latency",
+      "tool_execution": false
+    },
+    {
+      "default_budget": 260,
+      "default_strategy": "auto",
+      "default_target": "generic",
+      "demo_id": "incremental-rebuild",
+      "description": "Run a cold compile, apply one bounded source edit in a temporary copy, and prove incremental/full equivalence.",
+      "expected": {
+        "changed_source_uri": "repo:///service.py",
+        "equivalent": true
+      },
+      "files": [
+        {
+          "bytes": 507,
+          "path": "demo.json",
+          "sha256": "sha256:b22e521880f312af3c45a745e159a7ea71c22f437bed4e9e6dac91f5df74201e"
+        },
+        {
+          "bytes": 309,
+          "path": "files/change.json",
+          "sha256": "sha256:8c084d928443e8ce513a19fc3e664071358af6b10ac47549439f2bf0898f4287"
+        },
+        {
+          "bytes": 106,
+          "path": "files/repo/README.md",
+          "sha256": "sha256:11fa8096d741dcf1376067c15f72575e5f6b34fffdb27bb0f1b64b9ee6a94eeb"
+        },
+        {
+          "bytes": 160,
+          "path": "files/repo/service.py",
+          "sha256": "sha256:43865183d77aec7267479577df5479274573de5d8c13b42d0f8febc003698629"
+        }
+      ],
+      "kind": "incremental_rebuild",
+      "offline": true,
+      "profile_version": "1.0.0",
+      "title": "Incremental rebuild: checkout_total",
+      "tool_execution": false
+    },
+    {
+      "default_budget": 430,
+      "default_strategy": "auto",
+      "default_target": "generic",
+      "demo_id": "repository-bug",
+      "description": "Compile a reduced pre-fix python-humanize snapshot for one historical bug task.",
+      "expected": {
+        "diagnostic_codes": [],
+        "required_source": "repo:///src/humanize/lists.py"
+      },
+      "files": [
+        {
+          "bytes": 477,
+          "path": "demo.json",
+          "sha256": "sha256:ad2a20dd54bd5634e4625b1a7a8473bb32f53a361d5e4bdf7eff6daa2e67418d"
+        },
+        {
+          "bytes": 494,
+          "path": "files/repo/src/humanize/lists.py",
+          "sha256": "sha256:86ca5b93bbd8800beae8974fd80ba37d8246af9c8c2b4261e28ee7e6236147f8"
+        },
+        {
+          "bytes": 747,
+          "path": "files/task.json",
+          "sha256": "sha256:f0ee7c0500d617996e88d69dfef960b08a6684f363a241cbb2da08dbbe0a9868"
+        }
+      ],
+      "kind": "repository_bug",
+      "offline": true,
+      "profile_version": "1.0.0",
+      "title": "Repository bug: empty natural_list",
+      "tool_execution": false
+    }
+  ],
+  "profile_version": "1.0.0",
+  "registry_id": "contextc-release-demos",
+  "schema_version": {
+    "major": 1,
+    "minor": 0
+  }
+}

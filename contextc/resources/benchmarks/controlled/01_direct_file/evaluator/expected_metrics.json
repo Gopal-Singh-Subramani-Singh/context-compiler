@@ -1,0 +1,1 @@
+{"strategy":"density_greedy","required_file_recall":1.0,"required_file_precision":1.0,"required_span_recall":1.0,"dependency_closure_coverage":1.0,"useful_token_ratio":0.5,"redundant_token_ratio":0.5,"unsupported_context_ratio":0.0,"budget_utilization":0.3875}

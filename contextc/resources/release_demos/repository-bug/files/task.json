@@ -1,0 +1,14 @@
+{
+  "description": "natural_list fails for an empty list because it indexes the last item; an empty input should produce an empty string.",
+  "historical_fix_revision": "0a06a3d4a12113cd5f3d0df0cfbb3e27d92499eb",
+  "pre_fix_revision": "013969a1f7eef437f3c5e13dbd76b5466008fab8",
+  "repository_id": "python-humanize",
+  "required_end_line": 19,
+  "required_source": "repo:///src/humanize/lists.py",
+  "required_start_line": 12,
+  "source_content_allowance": 280,
+  "source_note": "Reduced M16 release snapshot derived from the M11 python-humanize historical task; the full M11 Git-bundle case study is not included in this demo.",
+  "task_id": "humanize-empty-natural-list-release",
+  "time_anchor": "2026-09-03T00:00:00Z",
+  "token_budget": 430
+}

@@ -1,0 +1,16 @@
+{
+  "default_budget": 260,
+  "default_strategy": "auto",
+  "default_target": "generic",
+  "demo_id": "incremental-rebuild",
+  "description": "Run a cold compile, apply one bounded source edit in a temporary copy, and prove incremental/full equivalence.",
+  "expected": {
+    "changed_source_uri": "repo:///service.py",
+    "equivalent": true
+  },
+  "kind": "incremental_rebuild",
+  "offline": true,
+  "profile_version": "1.0.0",
+  "title": "Incremental rebuild: checkout_total",
+  "tool_execution": false
+}

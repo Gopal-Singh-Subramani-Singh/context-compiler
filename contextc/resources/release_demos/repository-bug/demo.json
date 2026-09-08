@@ -1,0 +1,16 @@
+{
+  "default_budget": 430,
+  "default_strategy": "auto",
+  "default_target": "generic",
+  "demo_id": "repository-bug",
+  "description": "Compile a reduced pre-fix python-humanize snapshot for one historical bug task.",
+  "expected": {
+    "diagnostic_codes": [],
+    "required_source": "repo:///src/humanize/lists.py"
+  },
+  "kind": "repository_bug",
+  "offline": true,
+  "profile_version": "1.0.0",
+  "title": "Repository bug: empty natural_list",
+  "tool_execution": false
+}

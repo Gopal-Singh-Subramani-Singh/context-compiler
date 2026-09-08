@@ -1,0 +1,8 @@
+{
+  "path": "service.py",
+  "before": "    return subtotal - discount\n",
+  "after": "    return max(0, subtotal - discount)\n",
+  "task": "Ensure checkout_total never returns a negative total while preserving the existing discount behavior.",
+  "time_anchor": "2026-09-04T00:00:00Z",
+  "token_budget": 260
+}

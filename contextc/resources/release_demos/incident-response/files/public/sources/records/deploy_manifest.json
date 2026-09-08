@@ -1,0 +1,1 @@
+{"service":"checkout-api","version":"2026.09.03.1","changes":["cache-key normalization","checkout tracing"],"owner":"commerce-platform"}

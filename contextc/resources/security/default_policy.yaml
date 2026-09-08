@@ -1,0 +1,29 @@
+{
+  "policy_id": "contextc-default-security",
+  "version": "1",
+  "trust_dominates": [
+    ["system_policy", "developer_instruction"],
+    ["developer_instruction", "user_instruction"]
+  ],
+  "untrusted_domains": ["unverified_tool", "external_content", "retrieved_document"],
+  "external_sink_kinds": ["external", "tool", "network"],
+  "instruction_sink_kinds": ["instruction", "system", "developer"],
+  "rules": [
+    {
+      "rule_id": "untrusted-instruction-flow",
+      "action": "quote_as_data",
+      "diagnostic_code": "CTX420"
+    },
+    {
+      "rule_id": "local-secret-redaction",
+      "action": "redact",
+      "diagnostic_code": "CTX410",
+      "sensitivities": ["secret"]
+    },
+    {
+      "rule_id": "sensitive-external-flow",
+      "action": "redact",
+      "diagnostic_code": "CTX430"
+    }
+  ]
+}

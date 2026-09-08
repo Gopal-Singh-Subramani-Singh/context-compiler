@@ -1,0 +1,8 @@
+{
+  "schema_version": {"major": 1, "minor": 0},
+  "plan_id": "release-sensitive-to-external",
+  "calls": [
+    {"call_id": "read", "tool_id": "read_private_report", "input_bindings": {}, "literal_inputs": {}},
+    {"call_id": "send", "tool_id": "send_external_message", "input_bindings": {"message": "call:read.output"}, "literal_inputs": {}}
+  ]
+}

@@ -1,0 +1,12 @@
+.contextc/
+.coverage
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.venv/
+.venv-core/
+__pycache__/
+*.egg-info/
+build/
+dist/
+pytest-of-root/

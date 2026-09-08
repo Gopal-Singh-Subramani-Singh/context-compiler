@@ -1,0 +1,1 @@
+{"required_spans":[{"source_uri":"repo://direct-file/auth.py","start_line":1,"end_line":2}],"accepted_spans":[],"required_dependencies":[],"debug_expected_node_ids":["legacy-auth-node"],"evaluator_sentinel":"EVAL_ONLY_DIRECT_9137"}

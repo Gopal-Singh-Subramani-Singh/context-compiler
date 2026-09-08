@@ -1,0 +1,1 @@
+{"schema_version":{"major":1,"minor":0},"plan_id":"public-to-local","calls":[{"call_id":"read","tool_id":"read_public_note"},{"call_id":"write","tool_id":"write_local_note","input_bindings":{"content":"call:read.output"},"literal_inputs":{"relative_name":"copied-public.txt"}}]}

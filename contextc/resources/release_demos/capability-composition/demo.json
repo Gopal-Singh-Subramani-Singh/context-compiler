@@ -1,0 +1,17 @@
+{
+  "default_budget": 0,
+  "default_strategy": "static",
+  "default_target": "static-capability-plan",
+  "demo_id": "capability-composition",
+  "description": "Statically analyze a sensitive local read flowing into an external-message sink. No tool is executed.",
+  "expected": {
+    "decision": "require_explicit_approval",
+    "risk_kind": "sensitive_to_external",
+    "tool_execution_performed": false
+  },
+  "kind": "capability_composition",
+  "offline": true,
+  "profile_version": "1.0.0",
+  "title": "Capability composition: sensitive to external",
+  "tool_execution": false
+}

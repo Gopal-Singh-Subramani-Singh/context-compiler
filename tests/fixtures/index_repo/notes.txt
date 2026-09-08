@@ -1,0 +1,2 @@
+Repository indexing is static and deterministic.
+

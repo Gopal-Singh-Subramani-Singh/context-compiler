@@ -1,0 +1,31 @@
+{
+  "policy_id": "contextc-default-capability-policy",
+  "version": "1.0.0",
+  "trusted_approval_domains": [
+    "user_instruction",
+    "developer_instruction",
+    "system_policy"
+  ],
+  "untrusted_domains": [
+    "unverified_tool",
+    "external_content",
+    "retrieved_document"
+  ],
+  "rules": [
+    {
+      "rule_id": "sensitive-data-external-approval",
+      "risk_kinds": ["sensitive_to_external"],
+      "action": "require_explicit_approval"
+    },
+    {
+      "rule_id": "untrusted-content-execution-approval",
+      "risk_kinds": ["untrusted_to_execution"],
+      "action": "require_explicit_approval"
+    },
+    {
+      "rule_id": "credential-or-environment-network-block",
+      "risk_kinds": ["credential_to_network"],
+      "action": "block"
+    }
+  ]
+}

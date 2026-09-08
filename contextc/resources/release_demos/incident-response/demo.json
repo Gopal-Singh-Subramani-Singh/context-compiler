@@ -1,0 +1,20 @@
+{
+  "default_budget": 2600,
+  "default_strategy": "auto",
+  "default_target": "structured-json",
+  "demo_id": "incident-response",
+  "description": "Compile a bounded offline incident context with supersession and security evidence.",
+  "expected": {
+    "diagnostic_codes": [
+      "CTX210",
+      "CTX400",
+      "CTX425"
+    ],
+    "superseded_source_suffix": "rollback_v1.md"
+  },
+  "kind": "incident_response",
+  "offline": true,
+  "profile_version": "1.0.0",
+  "title": "Incident response: checkout latency",
+  "tool_execution": false
+}

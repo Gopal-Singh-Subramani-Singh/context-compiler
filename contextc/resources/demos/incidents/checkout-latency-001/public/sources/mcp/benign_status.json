@@ -1,0 +1,9 @@
+{
+  "server": "status-cache",
+  "tool": "status_lookup",
+  "result_id": "checkout-benign-001",
+  "trust_domain": "verified_tool",
+  "content": [
+    {"node_id":"mcp-benign-status","text":"checkout-cache is reachable; hit ratio remains degraded at 31 percent."}
+  ]
+}
