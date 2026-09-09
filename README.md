@@ -1,293 +1,255 @@
-# Context Compiler v0.18.0
+<div align="center">
 
-> Deterministic, policy-enforced, provenance-rich context compilation for AI systems — before inference.
+# Context Compiler
 
-Context Compiler turns heterogeneous source material into a controlled model-input artifact with explicit provenance, security policy, supersession handling, capability analysis, incremental caching, and reproducibility evidence.
+### Deterministic context infrastructure for model-ready AI input
+
+Context Compiler turns heterogeneous source material into **policy-enforced, provenance-rich, reproducible context before inference**.
+
+<br/>
+
+![Version](https://img.shields.io/badge/version-v0.18.0-2563eb?style=flat-square)
+![Status](https://img.shields.io/badge/status-release%20candidate-7c3aed?style=flat-square)
+![Python](https://img.shields.io/badge/python-3.11%2B-0f766e?style=flat-square)
+![CLI](https://img.shields.io/badge/CLI-contextc-111827?style=flat-square)
+![Validation](https://img.shields.io/badge/validation-20%2F20%20adjudicated-15803d?style=flat-square)
+
+</div>
+
+---
+
+<!--
+HERO IMAGE PLACEHOLDER
+
+Put your generated Context Compiler image here:
+
+  docs/assets/context-compiler-hero.png
+
+Recommended:
+- 16:9 or wide cinematic composition
+- ~3840x2160 source if available
+- optimized PNG/WebP for GitHub
+- keep the filename/path below, or update it here if you choose another name
+-->
 
 <p align="center">
-  <strong>Source material → normalize → analyze → secure → optimize → compile → verify → inference</strong>
+  <img
+    src="docs/assets/context-compiler-hero.png"
+    alt="Context Compiler"
+    width="100%"
+  />
 </p>
 
 ---
 
-## Status
+<div align="center">
 
-**Release status:** production-oriented, end-to-end validated release candidate.
+## Better context in. More controlled AI out.
 
-The v0.18.0 validation campaign covered **20 scenarios** across:
+**Ingest · Analyze · Enforce · Compile · Trace · Reproduce**
 
-- repository context selection
-- dependency handling
-- conflict and supersession
-- security policy enforcement
-- static capability analysis
-- live MCP enforcement
-- incremental caching
-- reproduction and tamper detection
-- local-model A/B evaluation
+Context Compiler adds a deterministic control layer between raw sources and model inference.
 
-One original B4-18 harness assertion was preserved as a failure and then adjudicated with a stronger real leaf-content mutation test; the adjudication passed.
+</div>
 
-> This does **not** establish universal production readiness across all operating systems, all MCP servers, fuzz/stress conditions, crash recovery, or every dependency ecosystem.
+<br/>
+
+| **INGEST** | **ANALYZE** | **ENFORCE** | **PRODUCE** |
+|---|---|---|---|
+| Repositories, documents, incidents, structured data, MCP | Dependencies, relevance, conflicts, supersession, capabilities | Trust, authority, sensitivity, approval, security policy | Token-bounded, model-ready context with evidence |
+
+| **TRACE** | **EVOLVE** | **VERIFY** |
+|---|---|---|
+| Provenance, source identity, selection reasons | Incremental caching and dependency-aware invalidation | Reproduction identities and tamper detection |
+
+---
+
+## What it does
+
+Most AI systems treat context assembly as string concatenation.
+
+Context Compiler treats it as a **compilation problem**.
+
+```text
+heterogeneous sources
+        │
+        ▼
+   source adapters
+        │
+        ▼
+   canonical context IR
+        │
+        ├── dependency analysis
+        ├── conflict detection
+        ├── supersession
+        ├── trust / authority
+        ├── sensitivity policy
+        └── capability analysis
+        │
+        ▼
+ security + policy enforcement
+        │
+        ▼
+ token-budget optimization
+        │
+        ▼
+   compiled model context
+        │
+        ├── provenance
+        ├── diagnostics
+        ├── manifest
+        └── reproduction evidence
+        │
+        ▼
+      inference
+```
+
+The output is not only prompt text. It is a **compiled artifact with evidence describing how and why it was produced**.
 
 ---
 
 ## Why Context Compiler
 
-Large-model workflows often fail before inference begins: too much context, stale guidance, untrusted instructions, conflicting evidence, hidden provenance, or risky tool compositions can all enter the prompt unchecked.
+Raw model context can contain stale guidance, conflicting evidence, irrelevant files, untrusted instructions, sensitive data, or risky tool flows.
 
-Context Compiler moves those concerns into a deterministic compilation layer.
+Context Compiler moves those concerns into an explicit pre-inference layer.
 
 ```mermaid
 flowchart LR
-    A[Repositories<br/>Incidents<br/>Docs<br/>MCP<br/>Structured data] --> B[Adapters]
-    B --> C[Canonical IR]
-    C --> D[Dependency + conflict analysis]
-    D --> E[Security + trust policy]
-    E --> F[Supersession]
-    F --> G[Token-budget optimization]
-    G --> H[Compiled context]
-    H --> I[Manifest + provenance]
-    I --> J[Model inference]
+    A[Raw Sources] --> B[Normalize]
+    B --> C[Analyze]
+    C --> D[Enforce Policy]
+    D --> E[Optimize]
+    E --> F[Compile]
+    F --> G[Record Evidence]
+    G --> H[Model]
 
-    E --> K[Diagnostics]
-    D --> K
-    F --> K
-    G --> K
-```
+    C --> I[Dependencies]
+    C --> J[Conflicts]
+    C --> K[Supersession]
 
-The result is not just text. It is a **compiled artifact plus evidence describing how that artifact was produced**.
-
----
-
-## Core idea
-
-```text
-Raw context
-   |
-   v
-[ Source adapters ]
-   |
-   v
-[ Canonical intermediate representation ]
-   |
-   +--> dependency graph
-   +--> trust / authority metadata
-   +--> sensitivity labels
-   +--> supersession relationships
-   +--> capability declarations
-   |
-   v
-[ Policy + optimization pipeline ]
-   |
-   v
-Compiled model input
-   |
-   +--> provenance
-   +--> diagnostics
-   +--> security transformations
-   +--> reproduction manifest
+    D --> L[Trust]
+    D --> M[Sensitivity]
+    D --> N[Capabilities]
 ```
 
 ---
 
-## Installation
+# Core capabilities
 
-### Recommended: `pipx` from the release wheel
+### Provenance-aware selection
+Retains source identity and selection evidence so compiled context can be traced back to its origin.
 
-```bash
-pipx install ./context_compiler-0.18.0-py3-none-any.whl
-contextc version
-```
+### Dependency-aware context
+Tracks relationships between source nodes and can retain required implementation, test, and supporting evidence through graph closure.
 
-### With `uv`
+### Conflict and supersession handling
+Distinguishes disagreement from explicit replacement so old guidance does not silently override current evidence.
 
-```bash
-uv tool install ./context_compiler-0.18.0-py3-none-any.whl
-contextc version
-```
+### Security policy enforcement
+Evaluates trust, authority, sensitivity, and instruction-flow risks before content reaches the model.
 
-### With `pip`
+### Static capability analysis
+Analyzes resource and tool compositions before execution and distinguishes approval-required flows from hard blocks.
 
-```bash
-python3 -m pip install ./context_compiler-0.18.0-py3-none-any.whl
-contextc version
-```
+### Live MCP enforcement
+Applies policy at the real MCP runtime boundary so prohibited sinks can be prevented from executing in validated scenarios.
 
-Expected:
+### Incremental compilation
+Reuses unaffected work while invalidating changed or dependency-affected stages.
 
-```text
-0.18.0
-```
-
-If the package is later published to PyPI as `context-compiler`:
-
-```bash
-pipx install context-compiler
-# or
-uv tool install context-compiler
-# or
-python3 -m pip install context-compiler
-```
-
----
-
-## Quick start
-
-Compile a repository into a bounded context artifact:
-
-```bash
-contextc compile ./repo \
-  --source-adapter repository \
-  --task "Explain the checkout bug and retain the relevant implementation and tests" \
-  --target generic \
-  --token-budget 1200 \
-  --output compiled-context.txt \
-  --manifest compiled-context.manifest.json \
-  --json > compile.json
-```
-
-Verify the produced artifact:
-
-```bash
-contextc reproduce compiled-context.manifest.json --verify --json
-```
-
-At a high level:
-
-```mermaid
-sequenceDiagram
-    participant U as User
-    participant C as contextc
-    participant A as Adapter
-    participant P as Policy/Analysis
-    participant O as Optimizer
-    participant R as Reproduction Layer
-
-    U->>C: compile source + task + budget
-    C->>A: ingest source material
-    A-->>C: normalized context IR
-    C->>P: analyze trust, dependencies, conflicts, capabilities
-    P-->>C: diagnostics + transformations
-    C->>O: select evidence under token budget
-    O-->>C: deterministic selection
-    C->>R: write manifest + identities
-    R-->>U: compiled context + provenance + evidence
-```
+### Reproduction and tamper detection
+Records source and artifact identities so later verification can detect divergence.
 
 ---
 
 # Architecture
 
-## High-level architecture
-
 ```mermaid
 flowchart TB
-    subgraph Inputs
+    subgraph SOURCES["Source Layer"]
         R[Repository]
-        I[Incident bundle]
-        M[MCP server]
         D[Documents]
-        S[Structured records]
+        I[Incident Data]
+        M[MCP]
+        S[Structured Sources]
     end
 
-    subgraph Frontend["Ingestion / Frontend"]
-        A1[Source adapters]
-        A2[Parsing]
-        A3[Normalization]
+    subgraph FRONTEND["Ingestion"]
+        A[Adapters]
+        P[Parsing]
+        N[Normalization]
     end
 
     subgraph IR["Canonical Context IR"]
-        N[Nodes]
-        E[Edges]
-        T[Trust domains]
-        X[Sensitivity]
-        C[Capabilities]
-        P[Provenance]
+        NODES[Nodes]
+        EDGES[Edges]
+        TRUST[Trust / Authority]
+        SENS[Sensitivity]
+        CAPS[Capabilities]
+        PROV[Provenance]
     end
 
-    subgraph Analysis
-        G[Dependency graph]
-        F[Conflict detection]
-        U[Supersession]
-        Q[Security analysis]
-        K[Capability analysis]
+    subgraph ANALYSIS["Analysis & Policy"]
+        DEP[Dependency Graph]
+        CON[Conflict Detection]
+        SUP[Supersession]
+        SEC[Security Analysis]
+        CAP[Capability Analysis]
     end
 
-    subgraph Compile
-        O[Token-budget optimizer]
-        L[Lowering]
+    subgraph BUILD["Compilation"]
+        OPT[Budget Optimizer]
+        LOW[Lowering]
     end
 
-    subgraph Evidence
-        M1[Manifest]
-        D1[Diagnostics]
-        R1[Reproduction identity]
-        A1E[Audit / explain data]
+    subgraph EVIDENCE["Evidence"]
+        MAN[Manifest]
+        DIA[Diagnostics]
+        EXP[Explain Data]
+        REP[Reproduction Identity]
     end
 
-    Inputs --> Frontend
-    Frontend --> IR
-    IR --> Analysis
-    Analysis --> Compile
-    Compile --> Evidence
-    Evidence --> OUT[Compiled model input]
+    SOURCES --> FRONTEND
+    FRONTEND --> IR
+    IR --> ANALYSIS
+    ANALYSIS --> BUILD
+    BUILD --> OUT[Compiled Context]
+    BUILD --> EVIDENCE
 ```
-
-### Design principle
-
-The compiler separates:
-
-1. **what sources say**
-2. **which sources are trusted**
-3. **which sources are authoritative**
-4. **which evidence is relevant**
-5. **which instructions are allowed to influence execution**
-6. **which context fits within the model budget**
-7. **how the final artifact can be reproduced**
-
-That separation is the foundation for deterministic and inspectable model context.
 
 ---
 
-# Security model
+# Security before inference
 
-Context Compiler treats context as potentially hostile input.
-
-The security layer reasons about:
-
-- trust domain
-- instruction authority
-- sensitivity
-- source-to-sink flow
-- capability composition
-- declared vs observed behavior
-- explicit approval requirements
+Context is treated as potentially hostile input.
 
 ```mermaid
-flowchart LR
-    A[Untrusted source] --> B{Instruction-like content?}
-    B -- No --> C[Treat as data]
-    B -- Yes --> D{Allowed instruction authority?}
-    D -- No --> E[Quote / constrain / diagnose]
-    D -- Yes --> F[Instruction scope]
+flowchart TD
+    A[Incoming Context] --> B{Trusted?}
+    B -- No --> C{Instruction-like?}
+    C -- Yes --> D[Constrain / Quote / Diagnose]
+    C -- No --> E[Treat as Data]
+    B -- Yes --> F[Continue Analysis]
 
-    E --> G[Compiled context]
-    F --> G
+    F --> G{Sensitive Data?}
+    E --> G
+    D --> G
 
-    H[Sensitive data] --> I{External sink?}
-    I -- No --> G
-    I -- Yes --> J{Policy}
-    J -- Redact --> K[Redacted flow]
-    J -- Approval --> L[Require explicit approval]
-    J -- Block --> M[Hard block]
+    G -- No --> H[Eligible Context]
+    G -- Yes --> I{External Flow?}
+
+    I -- No --> H
+    I -- Yes --> J{Policy Decision}
+
+    J -- Redact --> K[Redacted Context]
+    J -- Approval --> L[Require Explicit Approval]
+    J -- Block --> M[Hard Block]
 ```
 
-## Security diagnostics
+### Security diagnostics
 
-The validated release uses diagnostics including:
-
-| Diagnostic | Meaning |
+| Code | Meaning |
 |---|---|
 | `CTX400` | Injection-risk signal |
 | `CTX410` | Sensitivity-policy violation |
@@ -300,327 +262,249 @@ The validated release uses diagnostics including:
 | `CTX443` | Explicit approval required |
 | `CTX444` | Capability policy / evidence failure |
 | `CTX445` | Observed-vs-declared capability mismatch |
-| `CTX600` | Manifest/source mismatch |
-| `CTX610` | Artifact reproduction mismatch |
+| `CTX600` | Manifest / source mismatch |
+| `CTX610` | Reproduction artifact mismatch |
 
 ---
 
-# Supersession and stale guidance
+# Capability enforcement
 
-Context Compiler can retain both old and new evidence while modeling which guidance supersedes which.
+Context Compiler can reason about tool plans before execution.
 
 ```mermaid
 flowchart LR
-    A[Rollback runbook v1] -->|superseded by| B[Rollback runbook v2]
-    B --> C[Current approved guidance]
-    A --> D[Excluded / deprioritized]
-    C --> E[Compiled context]
+    P[Capability Plan] --> G[Capability Graph]
+
+    G --> S{Sensitive → External}
+    G --> U{Untrusted → Execution}
+    G --> C{Credential → Network}
+
+    S -- Yes --> A[Require Approval]
+    U -- Yes --> A
+    C -- Yes --> B[Hard Block]
+
+    A --> E{Trusted Exact Approval?}
+    E -- Yes --> OK[Eligible to Proceed]
+    E -- No --> STOP[Blocked / Pending]
+
+    B --> HARD[Blocked Regardless of Approval]
 ```
 
-This allows the compiler to distinguish:
-
-- contradiction
-- stale guidance
-- explicit supersession
-- current approved evidence
-
-without silently deleting history.
-
----
-
-# Capability analysis
-
-Context Compiler can analyze tool and resource plans before execution.
-
-```mermaid
-flowchart TD
-    A[Plan] --> B[Declared tools/resources]
-    B --> C[Build capability graph]
-    C --> D{Sensitive → external?}
-    C --> E{Untrusted → execution?}
-    C --> F{Credential → network?}
-
-    D -- Yes --> G[Require explicit approval]
-    E -- Yes --> G
-    F -- Yes --> H[Hard block]
-
-    G --> I{Valid trusted approval?}
-    I -- Yes --> J[Plan may proceed]
-    I -- No --> K[Blocked / pending approval]
-
-    H --> L[Blocked regardless of approval]
-```
-
-A key distinction is that **approval-required flows and hard-blocked flows are different policy outcomes**.
+This distinction matters: an approval-required flow is not the same as a non-overridable hard block.
 
 ---
 
 # Live MCP enforcement
 
-The live MCP path validates that policy decisions survive contact with a real tool runtime.
-
 ```mermaid
 sequenceDiagram
-    participant C as Context Compiler
-    participant S as MCP Server
+    participant CC as Context Compiler
+    participant MCP as MCP Server
     participant SRC as Source Tool
-    participant SNK as Sink Tool
+    participant SINK as Sink Tool
 
-    C->>S: initialize stdio MCP session
-    S-->>C: tools + resources
-    C->>SRC: invoke permitted source
-    SRC-->>C: observed result
-    C->>C: evaluate observed trust/sensitivity/capability
-    alt policy allows sink
-        C->>SNK: invoke sink
-    else approval required or hard-blocked
-        C-->>SNK: sink not invoked
+    CC->>MCP: Initialize real stdio session
+    MCP-->>CC: Tools + resources
+
+    CC->>SRC: Invoke permitted source
+    SRC-->>CC: Observed result
+
+    CC->>CC: Evaluate trust, sensitivity and capabilities
+
+    alt Policy allows sink
+        CC->>SINK: Invoke sink
+    else Approval required / hard blocked
+        CC-->>SINK: Do not invoke sink
     end
-    C->>C: record diagnostics + correspondence evidence
+
+    CC->>CC: Record diagnostics and evidence
 ```
 
-Validated behaviors include:
-
-- safe public reads
-- secret-to-external-message pre-sink blocking
-- untrusted-text-to-execution pre-sink blocking
-- credential-to-network hard blocking
-- declared-vs-observed capability mismatch detection
+Validated live-runtime cases include safe public reads, secret-to-message blocking, untrusted-to-execution blocking, credential-to-network hard blocking, and observed-vs-declared capability mismatch detection.
 
 ---
 
 # Incremental compilation
 
-The incremental cache avoids recomputing unchanged work while retaining clean-build equivalence.
-
 ```mermaid
 flowchart LR
-    A[Source change] --> B[Source identity]
-    B --> C[Dependency-aware invalidation]
-    C --> D[Recompute affected stages]
-    C --> E[Reuse unaffected cached work]
-    D --> F[Incremental result]
+    A[Source Change] --> B[Identity Change]
+    B --> C[Dependency-aware Invalidation]
+    C --> D[Recompute Affected Work]
+    C --> E[Reuse Unchanged Work]
+    D --> F[Incremental Build]
     E --> F
-    F --> G{Equivalent to clean build?}
+    F --> G{Equivalent to Clean Build?}
     G -- Yes --> H[Accept]
-    G -- No --> I[Report difference]
+    G -- No --> I[Report Difference]
 ```
 
-Validated incremental behaviors include:
-
-- warm-cache reuse
-- one-source selective invalidation
-- dependency-aware invalidation
-- unchanged source reuse
-- byte-equivalent incremental vs clean output
+The validated release demonstrated warm-cache reuse, selective invalidation, deep dependency invalidation, unchanged-source reuse, and incremental/clean-build equivalence.
 
 ---
 
-# Reproduction and tamper detection
-
-Every compiled artifact can be associated with a manifest and content identities.
-
-```mermaid
-flowchart TB
-    A[Source snapshot] --> B[Compile]
-    B --> C[Artifact]
-    B --> D[Manifest]
-
-    D --> E[Stored source graph identity]
-    D --> F[Stored artifact identity]
-
-    G[Later verification] --> H{Source identity matches?}
-    H -- No --> I[CTX600]
-    H -- Yes --> J{Artifact identity matches?}
-    J -- No --> K[CTX610]
-    J -- Yes --> L[Verified]
-```
-
-This gives the system a concrete answer to:
-
-> “Is this still the same source and the same compiled artifact?”
-
----
-
-# Evidence and provenance
-
-A compiled result should be inspectable, not opaque.
+# Reproduction
 
 ```mermaid
 flowchart LR
-    A[Selected context node] --> B[Source URI]
-    A --> C[Content identity]
-    A --> D[Trust domain]
-    A --> E[Sensitivity]
-    A --> F[Dependency path]
-    A --> G[Security transforms]
-    A --> H[Selection reason]
+    S[Source Snapshot] --> C[Compile]
+    C --> A[Artifact]
+    C --> M[Manifest]
+
+    M --> SI[Source Identity]
+    M --> AI[Artifact Identity]
+
+    V[Verify Later] --> X{Source Matches?}
+    X -- No --> C600[CTX600]
+    X -- Yes --> Y{Artifact Matches?}
+    Y -- No --> C610[CTX610]
+    Y -- Yes --> PASS[Verified]
 ```
 
-The compiler can therefore answer questions such as:
+---
 
-- Where did this context come from?
-- Why was it selected?
-- Which dependency forced it into the result?
-- Was it transformed by security policy?
-- Was another source superseded?
-- Which source-to-sink flow triggered a diagnostic?
+# Install
+
+## Recommended: `pipx`
+
+Download the wheel from the GitHub release, then:
+
+```bash
+pipx install ./context_compiler-0.18.0-py3-none-any.whl
+contextc version
+```
+
+## With `uv`
+
+```bash
+uv tool install ./context_compiler-0.18.0-py3-none-any.whl
+contextc version
+```
+
+## With `pip`
+
+```bash
+python3 -m pip install ./context_compiler-0.18.0-py3-none-any.whl
+contextc version
+```
+
+Expected:
+
+```text
+0.18.0
+```
+
+> If the project is later published to PyPI as `context-compiler`, installation can use `pipx install context-compiler`, `uv tool install context-compiler`, or `python3 -m pip install context-compiler`.
+
+---
+
+# Quick start
+
+Compile repository context:
+
+```bash
+contextc compile ./repo \
+  --source-adapter repository \
+  --task "Explain the checkout bug and retain the relevant implementation and tests" \
+  --target generic \
+  --token-budget 1200 \
+  --output compiled-context.txt \
+  --manifest compiled-context.manifest.json \
+  --json > compile.json
+```
+
+Verify the result:
+
+```bash
+contextc reproduce compiled-context.manifest.json --verify --json
+```
+
+Conceptually:
+
+```text
+repo
+ │
+ ▼
+index / parse
+ │
+ ▼
+dependency + relevance analysis
+ │
+ ▼
+security + supersession
+ │
+ ▼
+budgeted selection
+ │
+ ▼
+compiled-context.txt
++
+compiled-context.manifest.json
+```
 
 ---
 
 # Validation
 
-v0.18.0 completed a 20-scenario validation campaign.
+**v0.18.0 completed a 20-scenario end-to-end validation campaign.**
 
-```mermaid
-flowchart LR
-    B1[Batch 1<br/>Repository / graph / conflict / supersession<br/><b>5/5 PASS</b>]
-    B2[Batch 2<br/>Security / static capabilities<br/><b>5/5 PASS</b>]
-    B3[Batch 3<br/>Live MCP runtime enforcement<br/><b>5/5 PASS</b>]
-    B4[Batch 4<br/>Incremental / reproduction / local model<br/><b>5/5 adjudicated PASS</b>]
-
-    B1 --> B2 --> B3 --> B4
-```
-
-| Batch | Coverage | Result |
+| Batch | Focus | Result |
 |---|---|---:|
-| Batch 1 | repository selection, dependency chains, budget pressure, conflicts, supersession | **5/5** |
-| Batch 2 | prompt injection, sensitive flow, capability composition, approval policy | **5/5** |
-| Batch 3 | live MCP, pre-sink blocking, hard-block enforcement, runtime mismatch | **5/5** |
-| Batch 4 | incremental reuse, invalidation, reproduction, tamper detection, Ollama A/B | **5/5 adjudicated** |
-| **Total** | **20 end-to-end scenarios** | **20/20** |
+| 1 | Repository selection, dependencies, budget pressure, conflicts, supersession | **5/5** |
+| 2 | Injection handling, sensitive flow, static capabilities, approvals | **5/5** |
+| 3 | Live MCP runtime enforcement and capability mismatch | **5/5** |
+| 4 | Incremental compilation, invalidation, reproduction, tamper checks, Ollama A/B | **5/5 adjudicated** |
+| **Total** | **End-to-end scenarios** | **20/20** |
 
-### B4-18 adjudication note
+### B4-18 audit note
 
-The original B4-18 acceptance harness required a particular non-leaf `token_count` or `analysis` recomputation and therefore recorded an initial failure.
+The original B4-18 acceptance harness recorded one failure because its checker required a particular non-leaf recomputation pattern.
 
-That failure was preserved.
+That original failure was preserved.
 
-A stronger predeclared V2 test then changed the deepest dependency for real and verified:
-
-- dependency-aware invalidation closure
-- leaf recomputation
-- dependency-sensitive global recomputation
-- unchanged-source reuse
-- incremental/full equivalence
-- byte-identical incremental vs clean build
-- changed artifact different from original
-- structurally valid cache
-- certified source immutability
-
-The adjudication passed.
+A stronger predeclared adjudication changed a real deep-leaf source and verified dependency-aware invalidation, incremental/full equivalence, cache validity, unchanged-source reuse, artifact change, and certified-source immutability. The adjudication passed.
 
 ---
 
-# Local model A/B
+# Local-model A/B
 
-The final validation used the same local `llama3.2:3b` model, same question, temperature `0`, seed `42`, and essentially equal prompt-token pressure.
-
-```mermaid
-flowchart LR
-    A[Same 21-source incident] --> B1[Raw context path]
-    A --> B2[Context Compiler path]
-
-    B1 --> C1[Llama 3.2 3B]
-    B2 --> C2[Llama 3.2 3B]
-
-    C1 --> D1[7/7 checklist]
-    C2 --> D2[7/7 checklist]
-
-    B2 --> E[Pre-inference guarantees]
-    E --> E1[Security policy]
-    E --> E2[Supersession]
-    E --> E3[Provenance]
-    E --> E4[Reproduction]
-```
-
-Observed prompt counts in the final run:
+The final local-model test used the same `llama3.2:3b` model, question, temperature `0`, seed `42`, and essentially the same prompt-token budget.
 
 | Path | Prompt tokens | Checklist |
 |---|---:|---:|
-| Raw context | 1468 | 7/7 |
-| Context Compiler | 1472 | 7/7 |
+| Raw context | 1468 | **7/7** |
+| Context Compiler | 1472 | **7/7** |
 
-This run does **not** establish model accuracy, latency, or cost superiority. It demonstrates that the Context Compiler path can preserve task performance while adding deterministic pre-inference evidence and policy controls.
+The Context Compiler path additionally provided pre-inference security policy enforcement, supersession handling, provenance, and reproduction evidence.
 
----
-
-# CLI workflow map
-
-```mermaid
-flowchart TB
-    A[contextc] --> B[compile]
-    A --> C[index]
-    A --> D[explain]
-    A --> E[reproduce]
-    A --> F[cache]
-    A --> G[mcp]
-
-    F --> F1[stats]
-    F --> F2[inspect]
-    F --> F3[verify]
-    F --> F4[plan-invalidation]
-    F --> F5[invalidate]
-
-    G --> G1[plan]
-    G --> G2[live]
-    G2 --> G21[inspect]
-    G2 --> G22[tools]
-    G2 --> G23[resources]
-    G2 --> G24[validate]
-    G2 --> G25[explain]
-```
-
-For full commands, see [CLI Reference](docs/CLI_REFERENCE.md).
-
----
-
-# Repository layout
-
-```text
-context-compiler/
-├── README.md
-├── LICENSE
-├── CHANGELOG.md
-├── CONTRIBUTING.md
-├── SECURITY.md
-├── pyproject.toml
-├── uv.lock
-├── .github/
-├── contextc/
-├── tests/
-├── examples/
-├── tools/
-└── docs/
-```
-
-The installable release artifacts belong in the GitHub Release, not in the normal source tree.
+This single run does **not** establish model-accuracy, latency, or cost superiority.
 
 ---
 
 # Documentation
 
-| Topic | Document |
+| Guide | Link |
 |---|---|
 | Installation | [docs/INSTALLATION.md](docs/INSTALLATION.md) |
 | Quickstart | [docs/QUICKSTART.md](docs/QUICKSTART.md) |
 | Architecture | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
 | CLI reference | [docs/CLI_REFERENCE.md](docs/CLI_REFERENCE.md) |
 | Security model | [docs/SECURITY_MODEL.md](docs/SECURITY_MODEL.md) |
-| MCP and capability enforcement | [docs/MCP.md](docs/MCP.md) |
+| MCP & capability enforcement | [docs/MCP.md](docs/MCP.md) |
 | Incremental cache | [docs/INCREMENTAL_CACHE.md](docs/INCREMENTAL_CACHE.md) |
 | Reproduction | [docs/REPRODUCTION.md](docs/REPRODUCTION.md) |
 | Validation | [docs/VALIDATION.md](docs/VALIDATION.md) |
 | Operations | [docs/OPERATIONS.md](docs/OPERATIONS.md) |
-| Packaging / release | [docs/PACKAGING_RELEASE.md](docs/PACKAGING_RELEASE.md) |
-| GitHub release checklist | [docs/GITHUB_RELEASE_CHECKLIST.md](docs/GITHUB_RELEASE_CHECKLIST.md) |
+| Packaging & release | [docs/PACKAGING_RELEASE.md](docs/PACKAGING_RELEASE.md) |
+| Release checklist | [docs/GITHUB_RELEASE_CHECKLIST.md](docs/GITHUB_RELEASE_CHECKLIST.md) |
 | Troubleshooting | [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) |
-| Contributing | [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) |
 | Glossary | [docs/GLOSSARY.md](docs/GLOSSARY.md) |
+
+Contributing information is available in [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ---
 
-# Distribution artifacts
+# Distribution
 
 Certified v0.18.0 artifacts:
 
@@ -645,98 +529,49 @@ SHA-256
 f0635e6673fbf46c3ae67792f65c627c54afb81f5c2f59d9c87fceb8db5b91bd
 ```
 
-The release wheel was also smoke-tested from a fresh virtual environment and reported:
-
-```text
-Name: context-compiler
-Version: 0.18.0
-```
-
-with:
-
-```text
-CERTIFIED WHEEL INSTALL SMOKE TEST: PASS
-```
+The certified wheel was also installed in a fresh Python 3.11 virtual environment and the release smoke test passed.
 
 ---
 
-# What v0.18.0 establishes
+# Release status
 
-The validated evidence supports the following positioning:
+> **Context Compiler v0.18.0 is a production-oriented, end-to-end validated compiler prototype/release candidate that deterministically selects, transforms, secures, and records context before inference, with provenance, supersession, security policy, capability analysis, incremental caching, and reproduction evidence.**
 
-> **Context Compiler is a production-oriented, end-to-end validated compiler prototype/release candidate that deterministically selects, transforms, secures, and records context before inference, with provenance, supersession, security policy, capability analysis, incremental caching, and reproduction evidence.**
-
-It is appropriate to claim that v0.18.0 demonstrates:
+### Demonstrated in v0.18.0
 
 - deterministic context construction
 - provenance-aware evidence selection
+- dependency-aware context retention
+- conflict and supersession handling
 - security policy enforcement before inference
 - static capability-flow analysis
-- live MCP pre-sink enforcement in the tested scenarios
-- declared-vs-observed capability mismatch detection
-- incremental caching with clean-build equivalence
-- dependency-aware invalidation
+- live MCP pre-sink enforcement in validated scenarios
+- runtime declaration mismatch detection
+- incremental caching and invalidation
+- clean-build equivalence
 - deterministic reproduction
 - source and artifact tamper detection
 
-It is **not** appropriate to infer from this release alone:
+### Not established by this release alone
 
 - universal production readiness
 - universal MCP interoperability
-- cross-platform certification
+- broad multi-OS certification
 - fuzz robustness
 - long-duration soak/stress guarantees
 - crash-recovery guarantees
+- comprehensive dependency/security scanning
 - model-accuracy superiority
 - latency superiority
 - cost superiority
 
 ---
 
-# Release philosophy
+<div align="center">
 
-Context Compiler treats the prompt boundary as a compilation boundary.
+### The prompt boundary is a compilation boundary.
 
-Instead of sending raw heterogeneous information directly to a model:
+**Context Compiler v0.18.0**  
+Local-first · Policy-driven · Model-agnostic · Reproducible
 
-```text
-sources ------------------------------------> model
-```
-
-the system introduces an explicit control layer:
-
-```text
-sources
-   |
-   v
-normalize
-   |
-   v
-analyze
-   |
-   v
-apply trust + security policy
-   |
-   v
-resolve supersession + dependencies
-   |
-   v
-optimize under budget
-   |
-   v
-record provenance + reproduction evidence
-   |
-   v
-model
-```
-
-That is the central idea behind the project.
-
----
-
-## Release
-
-**Version:** `0.18.0`  
-**CLI:** `contextc`  
-**Package:** `context-compiler`  
-**Status:** production-oriented, end-to-end validated release candidate
+</div>
