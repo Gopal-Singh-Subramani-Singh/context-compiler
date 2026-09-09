@@ -34,7 +34,7 @@ Recommended:
 
 <p align="center">
   <img
-    src="docs/assets/context-compiler-hero.png"
+    src="docs/assets/screenshots/context compiler hero.png"
     alt="Context Compiler"
     width="100%"
   />
