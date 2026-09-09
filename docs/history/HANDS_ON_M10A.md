@@ -103,7 +103,8 @@ The plan should validate structurally, then analysis should emit CTX440 + CTX443
 ```bash
 FLOW=$(python - <<'PY'
 import json
-p=json.load(open('/Users/' + __import__('getpass').getuser() + '/Desktop/m10a-real-world/analysis.json'))
+analysis_path = Path.home() / "Desktop" / "m10a-real-world" / "analysis.json"
+p = json.loads(analysis_path.read_text())
 print(p['flows'][0]['flow_identity'])
 PY
 )
