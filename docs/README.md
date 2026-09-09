@@ -7,7 +7,7 @@ Start here for the public v0.18.0 documentation:
 - [Architecture](ARCHITECTURE.md)
 - [CLI reference](CLI_REFERENCE.md)
 - [Security model](SECURITY_MODEL.md)
-- [MCP and capability enforcement](docs/mcp)
+- [MCP and capability enforcement](mcp)
 - [Incremental cache and invalidation](INCREMENTAL_CACHE.md)
 - [Reproduction and tamper detection](REPRODUCTION.md)
 - [Validation evidence](VALIDATION.md)
