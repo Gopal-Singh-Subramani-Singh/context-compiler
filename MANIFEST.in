@@ -23,3 +23,7 @@ prune contextc/resources/benchmarks
 prune contextc/resources/case_study
 prune contextc/resources/demos/incidents/checkout-latency-001/evaluator
 global-exclude __pycache__ *.py[cod] .DS_Store
+
+# Historical development evidence is kept in the Git repository,
+# but is not part of the installable source distribution.
+prune docs/history
