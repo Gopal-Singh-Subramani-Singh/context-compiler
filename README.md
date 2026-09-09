@@ -490,7 +490,7 @@ This single run does **not** establish model-accuracy, latency, or cost superior
 | Architecture | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
 | CLI reference | [docs/CLI_REFERENCE.md](docs/CLI_REFERENCE.md) |
 | Security model | [docs/SECURITY_MODEL.md](docs/SECURITY_MODEL.md) |
-| MCP & capability enforcement | [docs/MCP.md](docs/MCP.md) |
+| MCP & capability enforcement | [docs/MCP.md](docs/mcp) |
 | Incremental cache | [docs/INCREMENTAL_CACHE.md](docs/INCREMENTAL_CACHE.md) |
 | Reproduction | [docs/REPRODUCTION.md](docs/REPRODUCTION.md) |
 | Validation | [docs/VALIDATION.md](docs/VALIDATION.md) |
